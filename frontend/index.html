@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecommendRestaurant</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#E23744',
+                        backgroundStart: '#0F172A',
+                        backgroundEnd: '#020617',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+        body {
+            color: #F5F5F5;
+            background: linear-gradient(to bottom, #0F172A, #020617);
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-input {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: #E23744;
+            box-shadow: 0 0 0 2px rgba(226, 55, 68, 0.2);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12 lg:p-16">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
+        
+        <!-- Left Sidebar -->
+        <div class="w-full lg:w-[400px] shrink-0">
+            <div class="mb-8">
+                <h1 class="text-4xl font-black text-white mb-2 tracking-tight">
+                    Recommend<span class="text-accent">Restaurant</span>
+                </h1>
+                <p class="text-gray-400">Discover your perfect dining experience curated by our expert AI.</p>
+            </div>
+
+            <!-- Form -->
+            <form id="search-form" class="glass-panel p-6 rounded-2xl flex flex-col gap-5 text-sm w-full max-w-md sticky top-6">
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="p-2 bg-accent/20 rounded-lg text-accent font-bold">🔍</div>
+                    <h2 class="text-xl font-semibold tracking-tight">Find Your Spot</h2>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-gray-400 font-medium">📍 Location</label>
+                    <select id="location" class="glass-input p-3 rounded-xl transition-all" required>
+                        <option value="Any" class="bg-slate-900 text-white font-bold" selected>🌍 Any Location (Citywide)</option>
+                        <option value="BTM" class="bg-slate-900 text-white">BTM</option>
+                        <option value="Banashankari" class="bg-slate-900 text-white">Banashankari</option>
+                        <option value="Banaswadi" class="bg-slate-900 text-white">Banaswadi</option>
+                        <option value="Bannerghatta Road" class="bg-slate-900 text-white">Bannerghatta Road</option>
+                        <option value="Basavanagudi" class="bg-slate-900 text-white">Basavanagudi</option>
+                        <option value="Basaveshwara Nagar" class="bg-slate-900 text-white">Basaveshwara Nagar</option>
+                        <option value="Bellandur" class="bg-slate-900 text-white">Bellandur</option>
+                        <option value="Bommanahalli" class="bg-slate-900 text-white">Bommanahalli</option>
+                        <option value="Brigade Road" class="bg-slate-900 text-white">Brigade Road</option>
+                        <option value="Brookefield" class="bg-slate-900 text-white">Brookefield</option>
+                        <option value="CV Raman Nagar" class="bg-slate-900 text-white">CV Raman Nagar</option>
+                        <option value="Central Bangalore" class="bg-slate-900 text-white">Central Bangalore</option>
+                        <option value="Church Street" class="bg-slate-900 text-white">Church Street</option>
+                        <option value="City Market" class="bg-slate-900 text-white">City Market</option>
+                        <option value="Commercial Street" class="bg-slate-900 text-white">Commercial Street</option>
+                        <option value="Cunningham Road" class="bg-slate-900 text-white">Cunningham Road</option>
+                        <option value="Domlur" class="bg-slate-900 text-white">Domlur</option>
+                        <option value="East Bangalore" class="bg-slate-900 text-white">East Bangalore</option>
+                        <option value="Ejipura" class="bg-slate-900 text-white">Ejipura</option>
+                        <option value="Electronic City" class="bg-slate-900 text-white">Electronic City</option>
+                        <option value="Frazer Town" class="bg-slate-900 text-white">Frazer Town</option>
+                        <option value="HBR Layout" class="bg-slate-900 text-white">HBR Layout</option>
+                        <option value="HSR" class="bg-slate-900 text-white">HSR</option>
+                        <option value="Hebbal" class="bg-slate-900 text-white">Hebbal</option>
+                        <option value="Hennur" class="bg-slate-900 text-white">Hennur</option>
+                        <option value="Hosur Road" class="bg-slate-900 text-white">Hosur Road</option>
+                        <option value="ITPL Main Road, Whitefield" class="bg-slate-900 text-white">ITPL Main Road, Whitefield</option>
+                        <option value="Indiranagar" class="bg-slate-900 text-white">Indiranagar</option>
+                        <option value="Infantry Road" class="bg-slate-900 text-white">Infantry Road</option>
+                        <option value="JP Nagar" class="bg-slate-900 text-white">JP Nagar</option>
+                        <option value="Jakkur" class="bg-slate-900 text-white">Jakkur</option>
+                        <option value="Jalahalli" class="bg-slate-900 text-white">Jalahalli</option>
+                        <option value="Jayanagar" class="bg-slate-900 text-white">Jayanagar</option>
+                        <option value="Jeevan Bhima Nagar" class="bg-slate-900 text-white">Jeevan Bhima Nagar</option>
+                        <option value="KR Puram" class="bg-slate-900 text-white">KR Puram</option>
+                        <option value="Kaggadasapura" class="bg-slate-900 text-white">Kaggadasapura</option>
+                        <option value="Kalyan Nagar" class="bg-slate-900 text-white">Kalyan Nagar</option>
+                        <option value="Kammanahalli" class="bg-slate-900 text-white">Kammanahalli</option>
+                        <option value="Kanakapura Road" class="bg-slate-900 text-white">Kanakapura Road</option>
+                        <option value="Kengeri" class="bg-slate-900 text-white">Kengeri</option>
+                        <option value="Koramangala" class="bg-slate-900 text-white">Koramangala</option>
+                        <option value="Koramangala 1st Block" class="bg-slate-900 text-white">Koramangala 1st Block</option>
+                        <option value="Koramangala 2nd Block" class="bg-slate-900 text-white">Koramangala 2nd Block</option>
+                        <option value="Koramangala 3rd Block" class="bg-slate-900 text-white">Koramangala 3rd Block</option>
+                        <option value="Koramangala 4th Block" class="bg-slate-900 text-white">Koramangala 4th Block</option>
+                        <option value="Koramangala 5th Block" class="bg-slate-900 text-white">Koramangala 5th Block</option>
+                        <option value="Koramangala 6th Block" class="bg-slate-900 text-white">Koramangala 6th Block</option>
+                        <option value="Koramangala 7th Block" class="bg-slate-900 text-white">Koramangala 7th Block</option>
+                        <option value="Koramangala 8th Block" class="bg-slate-900 text-white">Koramangala 8th Block</option>
+                        <option value="Kumaraswamy Layout" class="bg-slate-900 text-white">Kumaraswamy Layout</option>
+                        <option value="Langford Town" class="bg-slate-900 text-white">Langford Town</option>
+                        <option value="Lavelle Road" class="bg-slate-900 text-white">Lavelle Road</option>
+                        <option value="MG Road" class="bg-slate-900 text-white">MG Road</option>
+                        <option value="Magadi Road" class="bg-slate-900 text-white">Magadi Road</option>
+                        <option value="Majestic" class="bg-slate-900 text-white">Majestic</option>
+                        <option value="Malleshwaram" class="bg-slate-900 text-white">Malleshwaram</option>
+                        <option value="Marathahalli" class="bg-slate-900 text-white">Marathahalli</option>
+                        <option value="Mysore Road" class="bg-slate-900 text-white">Mysore Road</option>
+                        <option value="Nagarbhavi" class="bg-slate-900 text-white">Nagarbhavi</option>
+                        <option value="Nagawara" class="bg-slate-900 text-white">Nagawara</option>
+                        <option value="New BEL Road" class="bg-slate-900 text-white">New BEL Road</option>
+                        <option value="North Bangalore" class="bg-slate-900 text-white">North Bangalore</option>
+                        <option value="Old Airport Road" class="bg-slate-900 text-white">Old Airport Road</option>
+                        <option value="Old Madras Road" class="bg-slate-900 text-white">Old Madras Road</option>
+                        <option value="Peenya" class="bg-slate-900 text-white">Peenya</option>
+                        <option value="RT Nagar" class="bg-slate-900 text-white">RT Nagar</option>
+                        <option value="Race Course Road" class="bg-slate-900 text-white">Race Course Road</option>
+                        <option value="Rajajinagar" class="bg-slate-900 text-white">Rajajinagar</option>
+                        <option value="Rajarajeshwari Nagar" class="bg-slate-900 text-white">Rajarajeshwari Nagar</option>
+                        <option value="Rammurthy Nagar" class="bg-slate-900 text-white">Rammurthy Nagar</option>
+                        <option value="Residency Road" class="bg-slate-900 text-white">Residency Road</option>
+                        <option value="Richmond Road" class="bg-slate-900 text-white">Richmond Road</option>
+                        <option value="Sadashiv Nagar" class="bg-slate-900 text-white">Sadashiv Nagar</option>
+                        <option value="Sahakara Nagar" class="bg-slate-900 text-white">Sahakara Nagar</option>
+                        <option value="Sanjay Nagar" class="bg-slate-900 text-white">Sanjay Nagar</option>
+                        <option value="Sankey Road" class="bg-slate-900 text-white">Sankey Road</option>
+                        <option value="Sarjapur Road" class="bg-slate-900 text-white">Sarjapur Road</option>
+                        <option value="Seshadripuram" class="bg-slate-900 text-white">Seshadripuram</option>
+                        <option value="Shanti Nagar" class="bg-slate-900 text-white">Shanti Nagar</option>
+                        <option value="Shivajinagar" class="bg-slate-900 text-white">Shivajinagar</option>
+                        <option value="South Bangalore" class="bg-slate-900 text-white">South Bangalore</option>
+                        <option value="St. Marks Road" class="bg-slate-900 text-white">St. Marks Road</option>
+                        <option value="Thippasandra" class="bg-slate-900 text-white">Thippasandra</option>
+                        <option value="Ulsoor" class="bg-slate-900 text-white">Ulsoor</option>
+                        <option value="Uttarahalli" class="bg-slate-900 text-white">Uttarahalli</option>
+                        <option value="Varthur Main Road, Whitefield" class="bg-slate-900 text-white">Varthur Main Road, Whitefield</option>
+                        <option value="Vasanth Nagar" class="bg-slate-900 text-white">Vasanth Nagar</option>
+                        <option value="Vijay Nagar" class="bg-slate-900 text-white">Vijay Nagar</option>
+                        <option value="West Bangalore" class="bg-slate-900 text-white">West Bangalore</option>
+                        <option value="Whitefield" class="bg-slate-900 text-white">Whitefield</option>
+                        <option value="Wilson Garden" class="bg-slate-900 text-white">Wilson Garden</option>
+                        <option value="Yelahanka" class="bg-slate-900 text-white">Yelahanka</option>
+                        <option value="Yeshwantpur" class="bg-slate-900 text-white">Yeshwantpur</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-gray-400 font-medium">💰 Max Budget (for two)</label>
+                    <div class="flex items-center gap-3">
+                        <input type="range" id="budget" min="200" max="5000" step="100" value="2000" class="w-full accent-accent" oninput="document.getElementById('budget-val').innerText = '₹' + this.value"/>
+                        <span id="budget-val" class="font-semibold text-accent w-12">₹2000</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-gray-400 font-medium">⭐ Minimum Rating</label>
+                    <div class="flex items-center gap-3">
+                        <input type="range" id="rating" min="0" max="5" step="0.1" value="4.0" class="w-full accent-accent" oninput="document.getElementById('rating-val').innerText = this.value"/>
+                        <span id="rating-val" class="font-semibold text-accent w-8">4.0</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-gray-400 font-medium">🍽️ Cuisines</label>
+                    <input type="text" id="cuisines" placeholder="e.g. Italian, Chinese" class="glass-input p-3 rounded-xl transition-all"/>
+                </div>
+
+                <div class="flex flex-col gap-1.5 pt-2 border-t border-white/10 mt-2">
+                    <label class="text-accent font-semibold flex items-center gap-1.5">✨ AI Preferences</label>
+                    <p class="text-xs text-gray-400 mb-1">Tell the AI exactly what vibe you're looking for.</p>
+                    <textarea id="ai-prefs" placeholder="e.g. Looking for a quiet, romantic spot." class="glass-input p-3 rounded-xl transition-all resize-none h-24"></textarea>
+                </div>
+
+                <button type="submit" id="submit-btn" class="mt-4 p-4 rounded-xl font-bold text-white shadow-lg transition-all bg-accent hover:bg-red-600 hover:shadow-accent/30 hover:-translate-y-0.5">
+                    ✨ Generate Recommendations
+                </button>
+            </form>
+        </div>
+
+        <!-- Right Area - Results -->
+        <div id="results-area" class="flex-grow w-full">
+            <div class="w-full h-64 flex flex-col items-center justify-center text-gray-500 glass-panel rounded-3xl border-dashed border-2 border-white/10">
+                <p class="text-lg">Tell us what you're craving on the left!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const form = document.getElementById('search-form');
+        const resultsArea = document.getElementById('results-area');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const location = document.getElementById('location').value;
+            const budget = parseInt(document.getElementById('budget').value) || 2000;
+            const rating = parseFloat(document.getElementById('rating').value) || 0.0;
+            const cuisines = document.getElementById('cuisines').value.split(',').map(c => c.trim()).filter(c => c !== '');
+            const additional_preferences = document.getElementById('ai-prefs').value;
+
+            const payload = {
+                location,
+                budget_max: budget,
+                cuisines: cuisines,
+                min_rating: rating,
+                additional_preferences
+            };
+
+            // Set loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('bg-accent/50', 'cursor-not-allowed');
+            submitBtn.classList.remove('hover:bg-red-600', 'hover:-translate-y-0.5');
+            submitBtn.innerHTML = `Consulting AI...`;
+
+            resultsArea.innerHTML = `
+                <div class="w-full h-64 flex flex-col items-center justify-center gap-4 text-accent animate-pulse">
+                    <div class="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin"></div>
+                    <p class="font-semibold text-lg tracking-wide">AI is analyzing top candidates...</p>
+                </div>
+            `;
+
+            try {
+                const response = await axios.post('http://localhost:8000/api/recommend', payload);
+                const results = response.data;
+
+                if (results.length === 0) {
+                    resultsArea.innerHTML = `
+                        <div class="w-full h-64 flex flex-col items-center justify-center text-gray-500 glass-panel rounded-3xl border-dashed">
+                            <p class="text-lg">No restaurants found matching your criteria.</p>
+                        </div>
+                    `;
+                } else {
+                    let html = '<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">';
+                    results.forEach(r => {
+                        html += `
+                            <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10 border border-white/5 relative flex flex-col h-full">
+                                <div class="p-5 flex justify-between items-start gap-4 pb-3 relative z-10">
+                                    <div>
+                                        <h3 class="text-xl font-bold text-white mb-1 group-hover:text-accent transition-colors">
+                                            ${r.name}
+                                        </h3>
+                                        <p class="text-gray-400 text-sm flex items-center gap-1">📍 ${r.location}</p>
+                                    </div>
+                                    ${r.ai_rank ? `<div class="absolute top-0 right-0 bg-accent text-white font-black text-xl w-14 h-14 flex items-center justify-center rounded-bl-3xl shadow-lg shadow-accent/20">#${r.ai_rank}</div>` : ''}
+                                </div>
+
+                                <div class="px-5 flex flex-wrap gap-2 mb-4 relative z-10">
+                                    <span class="bg-white/10 text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1 font-medium border border-white/10 backdrop-blur-sm">⭐ ${r.rate} (${r.votes})</span>
+                                    <span class="bg-white/10 text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1 font-medium border border-white/10 backdrop-blur-sm">💰 ₹${r.cost_for_two} for two</span>
+                                </div>
+
+                                <div class="px-5 mb-5 relative z-10 flex-grow">
+                                    <div class="flex items-start gap-2 text-sm text-gray-300">
+                                        🍽️ <p class="capitalize leading-relaxed">${r.cuisines}</p>
+                                    </div>
+                                </div>
+
+                                ${r.ai_explanation ? `
+                                <div class="mx-5 mb-5 p-4 rounded-xl bg-accent/10 border border-accent/20 relative z-10">
+                                    <div class="flex items-center gap-1.5 mb-2 text-accent font-semibold text-xs uppercase tracking-wider">
+                                        ✨ AI Insight
+                                    </div>
+                                    <p class="text-sm text-gray-200 leading-relaxed italic">"${r.ai_explanation}"</p>
+                                </div>` : ''}
+
+                                ${r.zomato_url ? `
+                                <div class="mt-auto px-5 pb-5">
+                                    <a href="${r.zomato_url}" target="_blank" class="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl transition-colors font-medium text-sm">
+                                        View on Zomato ↗
+                                    </a>
+                                </div>` : ''}
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    resultsArea.innerHTML = html;
+                }
+            } catch (err) {
+                console.error(err);
+                const errorMsg = err.response?.data?.detail || err.message || 'An error occurred';
+                resultsArea.innerHTML = `
+                    <div class="glass-panel border-red-500/30 bg-red-500/10 text-white p-4 rounded-xl mb-6">
+                        <p class="font-semibold text-red-400">Error</p>
+                        <p class="text-sm">${errorMsg}</p>
+                    </div>
+                `;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('bg-accent/50', 'cursor-not-allowed');
+                submitBtn.classList.add('hover:bg-red-600', 'hover:-translate-y-0.5');
+                submitBtn.innerHTML = `✨ Generate Recommendations`;
+            }
+        });
+    </script>
+</body>
+</html>

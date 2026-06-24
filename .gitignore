@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+backend/venv/
+venv/
+.env
+
+# Data
+data_pipeline/zomato.csv
+data_pipeline/zomato.db
+*.sqlite3
+*.db
+
+# Frontend
+node_modules/
+dist/
+.next/
+
+# IDEs and OS
+.vscode/
+.idea/
+.DS_Store
