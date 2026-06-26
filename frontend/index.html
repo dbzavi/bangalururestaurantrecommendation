@@ -76,7 +76,7 @@
     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
 
         <!-- Left Sidebar -->
-        <div class="w-full lg:w-[400px] shrink-0">
+        <div id="search-view" class="w-full lg:w-[400px] shrink-0">
             <div class="mb-8">
                 <h1 class="text-4xl font-black text-white mb-2 tracking-tight">
                     Recommend<span class="text-accent">Restaurant</span>
@@ -245,7 +245,7 @@
         </div>
 
         <!-- Right Area - Results -->
-        <div id="results-area" class="flex-grow w-full">
+        <div id="results-area" class="flex-grow w-full hidden lg:block">
             <div
                 class="w-full h-64 flex flex-col items-center justify-center text-gray-500 glass-panel rounded-3xl border-dashed border-2 border-white/10">
                 <p class="text-lg">Tell us what you're craving on the left!</p>
@@ -276,23 +276,30 @@
                 additional_preferences
             };
 
+            const searchView = document.getElementById('search-view');
+
             // Set loading state
             submitBtn.disabled = true;
             submitBtn.classList.add('bg-accent/50', 'cursor-not-allowed');
             submitBtn.classList.remove('hover:bg-red-600', 'hover:-translate-y-0.5');
             submitBtn.innerHTML = `Consulting AI...`;
 
+            // On mobile, hide the search view and show the results view
+            if (window.innerWidth < 1024) {
+                searchView.classList.add('hidden');
+                resultsArea.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+
+            const mobileBackBtnHtml = `<button id="back-btn" class="lg:hidden mb-6 px-4 py-2 bg-slate-800 text-white rounded-lg font-medium shadow-md hover:bg-slate-700 transition-all">← Back to Search</button>`;
+
             resultsArea.innerHTML = `
+                ${mobileBackBtnHtml}
                 <div class="w-full h-64 flex flex-col items-center justify-center gap-4 text-accent animate-pulse">
                     <div class="w-12 h-12 border-4 border-accent/30 border-t-accent rounded-full animate-spin"></div>
                     <p class="font-semibold text-lg tracking-wide">AI is analyzing top candidates...</p>
                 </div>
             `;
-            
-            // Auto-scroll to results on mobile devices
-            if (window.innerWidth < 1024) {
-                resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
 
             try {
                 // Automatically switch between local development and production Railway URL
@@ -311,7 +318,7 @@
                         </div>
                     `;
                 } else {
-                    let html = '<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">';
+                    let html = mobileBackBtnHtml + '<div class="grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">';
                     results.forEach(r => {
                         html += `
                             <div class="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10 border border-white/5 relative flex flex-col h-full">
@@ -370,6 +377,15 @@
                 submitBtn.classList.remove('bg-accent/50', 'cursor-not-allowed');
                 submitBtn.classList.add('hover:bg-red-600', 'hover:-translate-y-0.5');
                 submitBtn.innerHTML = `✨ Generate Recommendations`;
+            }
+        });
+
+        // Event listener for the mobile back button
+        resultsArea.addEventListener('click', (e) => {
+            if (e.target.id === 'back-btn') {
+                const searchView = document.getElementById('search-view');
+                searchView.classList.remove('hidden');
+                resultsArea.classList.add('hidden');
             }
         });
     </script>
