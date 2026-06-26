@@ -56,6 +56,9 @@ def run_etl():
         'url': 'zomato_url'
     }, inplace=True)
 
+    # Drop massive columns not needed for AI inference to shrink DB
+    df.drop(columns=['reviews_list', 'menu_item'], inplace=True, errors='ignore')
+
     # 4. Standardize text fields (lowercase tags)
     df['cuisines'] = df['cuisines'].astype(str).str.lower()
     

@@ -264,7 +264,13 @@
             `;
 
             try {
-                const response = await axios.post('http://localhost:8000/api/recommend', payload);
+                // Automatically switch between local development and production Railway URL
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const baseUrl = isLocal 
+                    ? 'http://localhost:8000' 
+                    : 'https://YOUR-RAILWAY-APP-URL.up.railway.app'; // <--- PASTE YOUR RAILWAY URL HERE!
+                
+                const response = await axios.post(`${baseUrl}/api/recommend`, payload);
                 const results = response.data;
 
                 if (results.length === 0) {

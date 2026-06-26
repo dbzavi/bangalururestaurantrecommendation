@@ -7,7 +7,6 @@ venv/
 
 # Data
 data_pipeline/zomato.csv
-data_pipeline/zomato.db
 *.sqlite3
 *.db
 
