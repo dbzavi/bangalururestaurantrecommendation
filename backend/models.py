@@ -17,7 +17,5 @@ class Restaurant(Base):
     dish_liked = Column(String)
     cuisines = Column(String, index=True)
     cost_for_two = Column(Float, index=True)
-    reviews_list = Column(String)
-    menu_item = Column(String)
     listed_type = Column(String)
     listed_city = Column(String)
