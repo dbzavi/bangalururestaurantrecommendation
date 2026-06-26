@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
             }
         }
     </script>
-    
+
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -55,21 +56,25 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.5);
         }
+
         ::-webkit-scrollbar-thumb {
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
+
 <body class="p-6 md:p-12 lg:p-16">
     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-10">
-        
+
         <!-- Left Sidebar -->
         <div class="w-full lg:w-[400px] shrink-0">
             <div class="mb-8">
@@ -80,7 +85,8 @@
             </div>
 
             <!-- Form -->
-            <form id="search-form" class="glass-panel p-6 rounded-2xl flex flex-col gap-5 text-sm w-full max-w-md sticky top-6">
+            <form id="search-form"
+                class="glass-panel p-6 rounded-2xl flex flex-col gap-5 text-sm w-full max-w-md sticky top-6">
                 <div class="flex items-center gap-2 mb-2">
                     <div class="p-2 bg-accent/20 rounded-lg text-accent font-bold">🔍</div>
                     <h2 class="text-xl font-semibold tracking-tight">Find Your Spot</h2>
@@ -89,7 +95,8 @@
                 <div class="flex flex-col gap-1.5">
                     <label class="text-gray-400 font-medium">📍 Location</label>
                     <select id="location" class="glass-input p-3 rounded-xl transition-all" required>
-                        <option value="Any" class="bg-slate-900 text-white font-bold" selected>🌍 Any Location (Citywide)</option>
+                        <option value="Any" class="bg-slate-900 text-white font-bold" selected>🌍 Any Location
+                            (Citywide)</option>
                         <option value="BTM" class="bg-slate-900 text-white">BTM</option>
                         <option value="Banashankari" class="bg-slate-900 text-white">Banashankari</option>
                         <option value="Banaswadi" class="bg-slate-900 text-white">Banaswadi</option>
@@ -116,7 +123,8 @@
                         <option value="Hebbal" class="bg-slate-900 text-white">Hebbal</option>
                         <option value="Hennur" class="bg-slate-900 text-white">Hennur</option>
                         <option value="Hosur Road" class="bg-slate-900 text-white">Hosur Road</option>
-                        <option value="ITPL Main Road, Whitefield" class="bg-slate-900 text-white">ITPL Main Road, Whitefield</option>
+                        <option value="ITPL Main Road, Whitefield" class="bg-slate-900 text-white">ITPL Main Road,
+                            Whitefield</option>
                         <option value="Indiranagar" class="bg-slate-900 text-white">Indiranagar</option>
                         <option value="Infantry Road" class="bg-slate-900 text-white">Infantry Road</option>
                         <option value="JP Nagar" class="bg-slate-900 text-white">JP Nagar</option>
@@ -131,14 +139,22 @@
                         <option value="Kanakapura Road" class="bg-slate-900 text-white">Kanakapura Road</option>
                         <option value="Kengeri" class="bg-slate-900 text-white">Kengeri</option>
                         <option value="Koramangala" class="bg-slate-900 text-white">Koramangala</option>
-                        <option value="Koramangala 1st Block" class="bg-slate-900 text-white">Koramangala 1st Block</option>
-                        <option value="Koramangala 2nd Block" class="bg-slate-900 text-white">Koramangala 2nd Block</option>
-                        <option value="Koramangala 3rd Block" class="bg-slate-900 text-white">Koramangala 3rd Block</option>
-                        <option value="Koramangala 4th Block" class="bg-slate-900 text-white">Koramangala 4th Block</option>
-                        <option value="Koramangala 5th Block" class="bg-slate-900 text-white">Koramangala 5th Block</option>
-                        <option value="Koramangala 6th Block" class="bg-slate-900 text-white">Koramangala 6th Block</option>
-                        <option value="Koramangala 7th Block" class="bg-slate-900 text-white">Koramangala 7th Block</option>
-                        <option value="Koramangala 8th Block" class="bg-slate-900 text-white">Koramangala 8th Block</option>
+                        <option value="Koramangala 1st Block" class="bg-slate-900 text-white">Koramangala 1st Block
+                        </option>
+                        <option value="Koramangala 2nd Block" class="bg-slate-900 text-white">Koramangala 2nd Block
+                        </option>
+                        <option value="Koramangala 3rd Block" class="bg-slate-900 text-white">Koramangala 3rd Block
+                        </option>
+                        <option value="Koramangala 4th Block" class="bg-slate-900 text-white">Koramangala 4th Block
+                        </option>
+                        <option value="Koramangala 5th Block" class="bg-slate-900 text-white">Koramangala 5th Block
+                        </option>
+                        <option value="Koramangala 6th Block" class="bg-slate-900 text-white">Koramangala 6th Block
+                        </option>
+                        <option value="Koramangala 7th Block" class="bg-slate-900 text-white">Koramangala 7th Block
+                        </option>
+                        <option value="Koramangala 8th Block" class="bg-slate-900 text-white">Koramangala 8th Block
+                        </option>
                         <option value="Kumaraswamy Layout" class="bg-slate-900 text-white">Kumaraswamy Layout</option>
                         <option value="Langford Town" class="bg-slate-900 text-white">Langford Town</option>
                         <option value="Lavelle Road" class="bg-slate-900 text-white">Lavelle Road</option>
@@ -158,7 +174,8 @@
                         <option value="RT Nagar" class="bg-slate-900 text-white">RT Nagar</option>
                         <option value="Race Course Road" class="bg-slate-900 text-white">Race Course Road</option>
                         <option value="Rajajinagar" class="bg-slate-900 text-white">Rajajinagar</option>
-                        <option value="Rajarajeshwari Nagar" class="bg-slate-900 text-white">Rajarajeshwari Nagar</option>
+                        <option value="Rajarajeshwari Nagar" class="bg-slate-900 text-white">Rajarajeshwari Nagar
+                        </option>
                         <option value="Rammurthy Nagar" class="bg-slate-900 text-white">Rammurthy Nagar</option>
                         <option value="Residency Road" class="bg-slate-900 text-white">Residency Road</option>
                         <option value="Richmond Road" class="bg-slate-900 text-white">Richmond Road</option>
@@ -175,7 +192,8 @@
                         <option value="Thippasandra" class="bg-slate-900 text-white">Thippasandra</option>
                         <option value="Ulsoor" class="bg-slate-900 text-white">Ulsoor</option>
                         <option value="Uttarahalli" class="bg-slate-900 text-white">Uttarahalli</option>
-                        <option value="Varthur Main Road, Whitefield" class="bg-slate-900 text-white">Varthur Main Road, Whitefield</option>
+                        <option value="Varthur Main Road, Whitefield" class="bg-slate-900 text-white">Varthur Main Road,
+                            Whitefield</option>
                         <option value="Vasanth Nagar" class="bg-slate-900 text-white">Vasanth Nagar</option>
                         <option value="Vijay Nagar" class="bg-slate-900 text-white">Vijay Nagar</option>
                         <option value="West Bangalore" class="bg-slate-900 text-white">West Bangalore</option>
@@ -189,7 +207,9 @@
                 <div class="flex flex-col gap-1.5">
                     <label class="text-gray-400 font-medium">💰 Max Budget (for two)</label>
                     <div class="flex items-center gap-3">
-                        <input type="range" id="budget" min="200" max="5000" step="100" value="2000" class="w-full accent-accent" oninput="document.getElementById('budget-val').innerText = '₹' + this.value"/>
+                        <input type="range" id="budget" min="200" max="5000" step="100" value="2000"
+                            class="w-full accent-accent"
+                            oninput="document.getElementById('budget-val').innerText = '₹' + this.value" />
                         <span id="budget-val" class="font-semibold text-accent w-12">₹2000</span>
                     </div>
                 </div>
@@ -197,23 +217,28 @@
                 <div class="flex flex-col gap-1.5">
                     <label class="text-gray-400 font-medium">⭐ Minimum Rating</label>
                     <div class="flex items-center gap-3">
-                        <input type="range" id="rating" min="0" max="5" step="0.1" value="4.0" class="w-full accent-accent" oninput="document.getElementById('rating-val').innerText = this.value"/>
+                        <input type="range" id="rating" min="0" max="5" step="0.1" value="4.0"
+                            class="w-full accent-accent"
+                            oninput="document.getElementById('rating-val').innerText = this.value" />
                         <span id="rating-val" class="font-semibold text-accent w-8">4.0</span>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label class="text-gray-400 font-medium">🍽️ Cuisines</label>
-                    <input type="text" id="cuisines" placeholder="e.g. Italian, Chinese" class="glass-input p-3 rounded-xl transition-all"/>
+                    <input type="text" id="cuisines" placeholder="e.g. Italian, Chinese"
+                        class="glass-input p-3 rounded-xl transition-all" />
                 </div>
 
                 <div class="flex flex-col gap-1.5 pt-2 border-t border-white/10 mt-2">
                     <label class="text-accent font-semibold flex items-center gap-1.5">✨ AI Preferences</label>
                     <p class="text-xs text-gray-400 mb-1">Tell the AI exactly what vibe you're looking for.</p>
-                    <textarea id="ai-prefs" placeholder="e.g. Looking for a quiet, romantic spot." class="glass-input p-3 rounded-xl transition-all resize-none h-24"></textarea>
+                    <textarea id="ai-prefs" placeholder="e.g. Looking for a quiet, romantic spot."
+                        class="glass-input p-3 rounded-xl transition-all resize-none h-24"></textarea>
                 </div>
 
-                <button type="submit" id="submit-btn" class="mt-4 p-4 rounded-xl font-bold text-white shadow-lg transition-all bg-accent hover:bg-red-600 hover:shadow-accent/30 hover:-translate-y-0.5">
+                <button type="submit" id="submit-btn"
+                    class="mt-4 p-4 rounded-xl font-bold text-white shadow-lg transition-all bg-accent hover:bg-red-600 hover:shadow-accent/30 hover:-translate-y-0.5">
                     ✨ Generate Recommendations
                 </button>
             </form>
@@ -221,7 +246,8 @@
 
         <!-- Right Area - Results -->
         <div id="results-area" class="flex-grow w-full">
-            <div class="w-full h-64 flex flex-col items-center justify-center text-gray-500 glass-panel rounded-3xl border-dashed border-2 border-white/10">
+            <div
+                class="w-full h-64 flex flex-col items-center justify-center text-gray-500 glass-panel rounded-3xl border-dashed border-2 border-white/10">
                 <p class="text-lg">Tell us what you're craving on the left!</p>
             </div>
         </div>
@@ -235,7 +261,7 @@
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const location = document.getElementById('location').value;
             const budget = parseInt(document.getElementById('budget').value) || 2000;
             const rating = parseFloat(document.getElementById('rating').value) || 0.0;
@@ -266,10 +292,10 @@
             try {
                 // Automatically switch between local development and production Railway URL
                 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const baseUrl = isLocal 
-                    ? 'http://localhost:8000' 
-                    : 'https://YOUR-RAILWAY-APP-URL.up.railway.app'; // <--- PASTE YOUR RAILWAY URL HERE!
-                
+                const baseUrl = isLocal
+                    ? 'http://localhost:8000'
+                    : 'https://web-production-469b.up.railway.app'; // <--- PASTE YOUR RAILWAY URL HERE!
+
                 const response = await axios.post(`${baseUrl}/api/recommend`, payload);
                 const results = response.data;
 
@@ -343,4 +369,5 @@
         });
     </script>
 </body>
+
 </html>
