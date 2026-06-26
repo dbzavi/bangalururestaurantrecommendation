@@ -288,6 +288,11 @@
                     <p class="font-semibold text-lg tracking-wide">AI is analyzing top candidates...</p>
                 </div>
             `;
+            
+            // Auto-scroll to results on mobile devices
+            if (window.innerWidth < 1024) {
+                resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
 
             try {
                 // Automatically switch between local development and production Railway URL
