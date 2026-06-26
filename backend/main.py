@@ -3,6 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Union
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import models, schemas, crud, ai_service
 from database import engine, get_db
 
