@@ -34,7 +34,7 @@ async def get_recommendations(prefs: schemas.RecommendationRequest, db: Session 
     candidates = crud.get_candidate_restaurants(db, prefs)
     
     if not candidates:
-        raise HTTPException(status_code=404, detail="No restaurants found matching your hard constraints.")
+        raise HTTPException(status_code=404, detail="No restaurants match found")
 
     # 2. AI Integration (Phase 3)
     if prefs.additional_preferences:
