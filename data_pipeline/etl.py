@@ -62,6 +62,10 @@ def run_etl():
     # 4. Standardize text fields (lowercase tags)
     df['cuisines'] = df['cuisines'].astype(str).str.lower()
     
+    # 5. Fix mojibake in restaurant names
+    if 'name' in df.columns:
+        df['name'] = df['name'].str.replace(r'Caf[^\s]*©', 'Café', regex=True)
+    
     # Optional: Deduplicate (using zomato_url which should be unique if scraped well)
     df.drop_duplicates(subset=['zomato_url'], inplace=True)
     
